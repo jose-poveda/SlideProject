@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Confidence intervals</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Confidence intervals">
+  <meta name="author" content="Jose Poveda">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Confidence intervals</h1>
+    <h2>Material to accompany the shiny app &quot;95% Confidence intervals for the mean&quot;</h2>
+    <p>Jose Poveda<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Importance of confidence intervals</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li><p>It is possible to estimate the value of a certain variable by extracting a sample and computing its mean.</p></li>
+<li><p>However, this is a quantity with little use, because it is unlikely the real mean of the population is by chance, the same as the sample mean.</p></li>
+<li><p>On the other hand, we know that the sample mean must be close to the population mean.</p></li>
+<li><p>With this in mind, and by using statistic tools, we can create an interval in which we can be almost certain the population mean is for any given population.</p></li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Definition</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>A confidence interval for a parameter is found between L and U by this relation:</li>
+</ul>
+
+<pre><code>P(L&lt;theta&lt;U) = 1 - alpha
+</code></pre>
+
+<p>Where 1 - alpha is the confidence coefficient. This means, for example if 1 - alpha is 95%, that 95% of the extracted samples mean will be into the limits of L and U.</p>
+
+<ul>
+<li>There are multiple confidence intervals that are commonly used, by default 95% is selected.</li>
+</ul>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Intervals for the mean</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>The random factor must be introduced. Something to take in consideration is the fact that the population must distribute normally. If that&#39;s the case, then the mean should distribute as a t student with n - 1 degrees of freedom:</p>
+
+<p>For example, if our sample mean is 20, our sample standard deviation is 5 and the sample size is 20:</p>
+
+<pre><code class="r">mean1 = 20; sd1 = 5; ss = 20;
+lower = mean1 - qt(0.975, ss - 1) * sd1 / sqrt(ss)
+upper = mean1 + qt(0.975, ss - 1) * sd1 / sqrt(ss)
+print(c(lower, upper))
+</code></pre>
+
+<pre><code>## [1] 17.65993 22.34007
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>Using the Shiny App</h2>
+  </hgroup>
+  <article data-timings="">
+    <p>This shiny app computes a 95% confidence interval for any given mean, using a t distribution.</p>
+
+<ul>
+<li><p>Sample mean: In this field, introduce the sample mean for your data (any real number).</p></li>
+<li><p>Sample standard deviation: In this field, introduce the sample standard deviation for your data (any positive number).</p></li>
+<li><p>Sample size: In this field introduce the sample size used to estimate the sample mean and the sample standard deviation (a positive integer).</p></li>
+</ul>
+
+<p>As mentioned, the computation uses these formulas:</p>
+
+<pre><code>Lower limit: mean - t * standard deviation / sqrt(sample size)
+Upper limit: mean + t * standard deviation / sqrt(sample size)
+</code></pre>
+
+<p>Where t is calculated by:</p>
+
+<pre><code>qt(0.975, sample size - 1)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Importance of confidence intervals'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='Definition'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='Intervals for the mean'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='Using the Shiny App'>
+         4
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
